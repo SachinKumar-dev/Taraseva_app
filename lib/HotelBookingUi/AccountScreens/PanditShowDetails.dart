@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class PanditShowDetails extends StatefulWidget {
+  const PanditShowDetails({Key? key}) : super(key: key);
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<PanditShowDetails> createState() => _PanditShowDetailsState();
 }
 
-class _ProfileState extends State<Profile> {
+class _PanditShowDetailsState extends State<PanditShowDetails> {
   List<DocumentSnapshot> documents = [];
 
   @override
@@ -20,7 +20,7 @@ class _ProfileState extends State<Profile> {
   Future<void> readData() async {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('User')
+          .collection('Pandit Details')
           .orderBy('createdAt', descending: true)
           .limit(1)
           .get();
@@ -53,9 +53,9 @@ class _ProfileState extends State<Profile> {
                     icon: const Icon(Icons.arrow_back_rounded),
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 88.0),
+                    padding: EdgeInsets.only(left: 80.0),
                     child: Text(
-                      "Your Details",
+                      "Personal Details",
                       style: TextStyle(fontSize: 25),
                     ),
                   ),
@@ -63,13 +63,6 @@ class _ProfileState extends State<Profile> {
               ),
               const SizedBox(
                 height: 30,
-              ),
-              const CircleAvatar(
-                radius: 80,
-                backgroundColor: Colors.black,
-                backgroundImage: NetworkImage(
-                  "https://images.unsplash.com/photo-1554126807-6b10f6f6692a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Ym95fGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
-                ),
               ),
               const SizedBox(
                 height: 20,
@@ -89,7 +82,7 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, top: 15),
+                          padding: const EdgeInsets.only(left: 15.0, top: 19),
                           child: Text(
                             documents[index]['title'],
                             style: const TextStyle(fontSize: 16),
@@ -107,7 +100,7 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, top: 15),
+                          padding: const EdgeInsets.only(left: 15.0, top: 19),
                           child: Text(
                             documents[index]['name'],
                             style: const TextStyle(fontSize: 16),
@@ -125,7 +118,7 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, top: 15),
+                          padding: const EdgeInsets.only(left: 15.0, top: 19),
                           child: Text(
                             documents[index]['address'],
                             style: const TextStyle(fontSize: 16),
@@ -143,7 +136,7 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, top: 15),
+                          padding: const EdgeInsets.only(left: 15.0, top: 19),
                           child: Text(
                             documents[index]['DOB'],
                             style: const TextStyle(fontSize: 16),
@@ -161,7 +154,7 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, top: 15),
+                          padding: const EdgeInsets.only(left: 15.0, top: 19),
                           child: Text(
                             documents[index]['Gmail'],
                             style: const TextStyle(fontSize: 16),
@@ -179,7 +172,7 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, top: 15),
+                          padding: const EdgeInsets.only(left: 15.0, top: 19),
                           child: Text(
                             documents[index]['MobileNumber'],
                             style: const TextStyle(fontSize: 16),
@@ -197,9 +190,9 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0, top: 15),
+                          padding: const EdgeInsets.only(left: 15.0, top: 19),
                           child: Text(
-                            documents[index]['Gender'],
+                            documents[index]['Puja'],
                             style: const TextStyle(fontSize: 16),
                           ),
                         ),

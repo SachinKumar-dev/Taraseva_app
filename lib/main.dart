@@ -1,13 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gitson/ChatPages/QR.dart';
-import 'package:gitson/HotelBookingUi/PaymentScreens/AdvancePayment.dart';
-import 'package:gitson/UserAppUi/PaymentModes.dart';
-import 'package:gitson/UserAppUi/Support.dart';
-import 'ChatPages/ChatScreen.dart';
-import 'ChatPages/Payment.dart';
-import 'Services/Onboard.dart';
+import 'package:gitson/Services/Onboard.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gitson/AuthLogic/OTPScreen.dart';
-import 'package:gitson/HotelBookingUi/AccountScreens/LogGmailPage.dart';
+import 'package:gitson/HotelBookingUi/AccountScreens/LogOptions.dart';
 import 'package:gitson/HotelBookingUi/AccountScreens/LogPage.dart';
 
 class InputScreen extends StatefulWidget {

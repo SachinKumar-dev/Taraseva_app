@@ -10,7 +10,6 @@ import 'package:gitson/ChatPages/Payment.dart';
 import 'package:gitson/Pandits/Home.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
@@ -83,21 +82,30 @@ class _ChatPageState extends State<ChatPage> {
                   },
                   child: const Align(
                     alignment: AlignmentDirectional.centerStart,
-                    child: Text('File'),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('File'),
+                    ),
                   ),
                 ),
                 TextButton(
                   onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>const Payments())),
                   child: const Align(
                     alignment: AlignmentDirectional.centerStart,
-                    child: Text('Payment'),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Payment'),
+                    ),
                   ),
                 ),
                 TextButton(
                   onPressed: () => Navigator.pop(context),
                   child: const Align(
                     alignment: AlignmentDirectional.centerStart,
-                    child: Text('Cancel'),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Cancel'),
+                    ),
                   ),
                 ),
                 TextButton(
@@ -106,7 +114,10 @@ class _ChatPageState extends State<ChatPage> {
                   },
                   child: const Align(
                     alignment: AlignmentDirectional.centerStart,
-                    child: Text('Back'),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Back'),
+                    ),
                   ),
                 ),
               ],

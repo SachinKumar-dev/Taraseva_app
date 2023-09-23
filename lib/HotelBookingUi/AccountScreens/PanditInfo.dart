@@ -1,28 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gitson/ChatPages/Payment.dart';
-import 'package:gitson/HotelBookingUi/PaymentScreens/AdvancePayment.dart';
-import 'package:gitson/UserAppUi/PaymentModes.dart';
+import 'package:gitson/Pandits/ShowPanditDetails.dart';
 
-class CreateAccountDetails extends StatefulWidget {
-  const CreateAccountDetails({super.key});
+class PanditInfo extends StatefulWidget {
+  const PanditInfo({super.key});
 
   @override
-  State<CreateAccountDetails> createState() => _CreateAccountState();
+  State<PanditInfo> createState() => _PanditInfoState();
 }
 
-class _CreateAccountState extends State<CreateAccountDetails> {
-  final firsrName = TextEditingController();
-  final lastName = TextEditingController();
+class _PanditInfoState extends State<PanditInfo> {
+  final name = TextEditingController();
+  final address = TextEditingController();
   final DOB = TextEditingController();
   final Gmail = TextEditingController();
   final MobileNumber = TextEditingController();
-  final Gender = TextEditingController();
+  final PujaPaliDate = TextEditingController();
 
   int tappedContainerIndex = -1;
   String selectedTitle = '';
-
+//container error handling
   void _handleTap(int index) {
     setState(() {
       tappedContainerIndex = index;
@@ -35,11 +33,11 @@ class _CreateAccountState extends State<CreateAccountDetails> {
       }
     });
   }
-  //error handling fun.
+ //error handling
   void detailHandling() {
-    if (firsrName.text.isEmpty) {
+    if (name.text.isEmpty) {
       throw Exception("Please fill all the details.");
-    } else if (lastName.text.isEmpty) {
+    } else if (address.text.isEmpty) {
       throw Exception("Please fill all the details");
     } else if (DOB.text.isEmpty) {
       throw Exception("Please fill all the details");
@@ -47,38 +45,41 @@ class _CreateAccountState extends State<CreateAccountDetails> {
       throw Exception("Please fill all the details");
     } else if (MobileNumber.text.isEmpty) {
       throw Exception("Please fill all the details");
-    } else if (Gender.text.isEmpty) {
+    } else if (PujaPaliDate.text.isEmpty) {
       throw Exception("Please fill all the details");
     } else if (selectedTitle.isEmpty) {
       throw Exception("Please fill all the details");
     }
   }
+
 //adding data to database
   Future<void> createData() async {
+    DateTime now = DateTime.now();
     try {
-      CollectionReference db = FirebaseFirestore.instance.collection(
-          "Booking Details");
       detailHandling();
+      CollectionReference db = FirebaseFirestore.instance.collection(
+          "Pandit Details");
       await db.add({
         "title": selectedTitle,
-        "firstName": firsrName.text,
-        "lastName": lastName.text,
+        "name": name.text,
+        "address": address.text,
         "DOB": DOB.text,
         "Gmail": Gmail.text,
         "MobileNumber": MobileNumber.text,
-        "Gender": Gender.text,
+        "Puja": PujaPaliDate.text,
+        'createdAt': now,
       });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.green,
-          content: Text('Details Saved Successfully!'),
+          content: Text('Details Saved!'),
           duration: Duration(seconds: 2),
         ),
       );
       Future.delayed(const Duration(seconds: 5));
       // ignore: use_build_context_synchronously
       Navigator.push(context,
-          (MaterialPageRoute(builder: (context) => const Payment())));
+          (MaterialPageRoute(builder: (context) => const ShowPanditDetails())));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -96,7 +97,7 @@ class _CreateAccountState extends State<CreateAccountDetails> {
       body: SingleChildScrollView(
         child: SafeArea(
           child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const SizedBox(
               height: 30,
             ),
@@ -111,9 +112,9 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                     icon: const Icon(Icons.arrow_back_rounded),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(left: 65),
+                    margin: const EdgeInsets.only(left: 75),
                     child: const Text(
-                      "Details for Reservation",
+                      "Pandit Details",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
@@ -141,13 +142,13 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                           border: Border.all(color: Colors.green)),
                       child: Center(
                           child: Text(
-                        "Mr.",
-                        style: TextStyle(
-                          color: tappedContainerIndex == 0
-                              ? Colors.white
-                              : Colors.green,
-                        ),
-                      )),
+                            "Mr.",
+                            style: TextStyle(
+                              color: tappedContainerIndex == 0
+                                  ? Colors.white
+                                  : Colors.green,
+                            ),
+                          )),
                     ),
                   ),
                   GestureDetector(
@@ -163,13 +164,13 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                           border: Border.all(color: Colors.green)),
                       child: Center(
                           child: Text(
-                        "Mrs.",
-                        style: TextStyle(
-                          color: tappedContainerIndex == 1
-                              ? Colors.white
-                              : Colors.green,
-                        ),
-                      )),
+                            "Mrs.",
+                            style: TextStyle(
+                              color: tappedContainerIndex == 1
+                                  ? Colors.white
+                                  : Colors.green,
+                            ),
+                          )),
                     ),
                   ),
                   GestureDetector(
@@ -185,13 +186,13 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                           border: Border.all(color: Colors.green)),
                       child: Center(
                           child: Text(
-                        "Ms.",
-                        style: TextStyle(
-                          color: tappedContainerIndex == 2
-                              ? Colors.white
-                              : Colors.green,
-                        ),
-                      )),
+                            "Ms.",
+                            style: TextStyle(
+                              color: tappedContainerIndex == 2
+                                  ? Colors.white
+                                  : Colors.green,
+                            ),
+                          )),
                     ),
                   ),
                 ],
@@ -206,12 +207,12 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                   width: MediaQuery.of(context).size.width*0.91,
                   height: 55,
                   child: TextFormField(
-                    controller: firsrName,
+                    controller: name,
                     cursorColor: Colors.black54,
                     decoration: InputDecoration(
                       fillColor: Colors.grey.shade200,
                       filled: true,
-                      hintText: "First Name",
+                      hintText: "Name",
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(
@@ -236,12 +237,12 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                   width: MediaQuery.of(context).size.width*0.91,
                   height: 55,
                   child: TextFormField(
-                    controller: lastName,
+                    controller: address,
                     cursorColor: Colors.black54,
                     decoration: InputDecoration(
                       fillColor: Colors.grey.shade200,
                       filled: true,
-                      hintText: "Last Name",
+                      hintText: "Address",
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(
@@ -266,6 +267,7 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                   width: MediaQuery.of(context).size.width*0.91,
                   height: 55,
                   child: TextFormField(
+                    keyboardType: TextInputType.datetime,
                     controller: DOB,
                     cursorColor: Colors.black54,
                     decoration: InputDecoration(
@@ -357,12 +359,13 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                   width: MediaQuery.of(context).size.width*0.91,
                   height: 55,
                   child: TextFormField(
-                    controller: Gender,
+                    keyboardType: TextInputType.datetime,
+                    controller: PujaPaliDate,
                     cursorColor: Colors.black54,
                     decoration: InputDecoration(
                       fillColor: Colors.grey.shade200,
                       filled: true,
-                      hintText: "Gender",
+                      hintText: "Puja Pali Date",
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(
@@ -378,7 +381,7 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                     ),
                   ),
                 )),
-             SizedBox(
+            SizedBox(
               height: 70.h,
             ),
             Padding(
@@ -393,9 +396,9 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                       borderRadius: BorderRadius.circular(30)),
                   child: const Center(
                       child: Text(
-                    "Continue",
-                    style: TextStyle(fontSize: 15, color: Colors.white),
-                  )),
+                        "Continue",
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      )),
                 ),
               ),
             ),

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../HotelBookingUi/AccountScreens/LogGmailPage.dart';
+import '../HotelBookingUi/AccountScreens/LogOptions.dart';
 import '../Services/ServicesOpt.dart';
 
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gitson/ChatPages/ChatScreen.dart';
-import 'package:gitson/ChatPages/LogIn.dart';
+import 'package:gitson/HotelBookingUi/AccountScreens/UserShowDetails.dart';
 import 'package:gitson/Models/Pandits.dart';
 import 'package:gitson/Pandits/Details.dart';
 import 'package:gitson/Services/ServicesOpt.dart';
@@ -29,13 +29,16 @@ class _HomeState extends State<Home> {
     if (selectedIndex == 3) {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const ServicesOpt()));
-    }else{
-      if (selectedIndex == 1) {
+    }else if (selectedIndex == 1) {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ChatLog()));
+            MaterialPageRoute(builder: (context) => const ChatPage()));
       }
+    else if (selectedIndex == 2) {
+    Navigator.push(context,
+    MaterialPageRoute(builder: (context) => const ShowDetails()));
     }
-  }
+    }
+
 
   @override
   Widget build(BuildContext context) {

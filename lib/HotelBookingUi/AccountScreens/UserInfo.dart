@@ -1,20 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gitson/ChatPages/Payment.dart';
-import 'package:gitson/HotelBookingUi/PaymentScreens/AdvancePayment.dart';
-import 'package:gitson/UserAppUi/PaymentModes.dart';
+import 'package:gitson/Services/ServicesOpt.dart';
 
-class CreateAccountDetails extends StatefulWidget {
-  const CreateAccountDetails({super.key});
+class UserInformation extends StatefulWidget {
+  const UserInformation({super.key});
 
   @override
-  State<CreateAccountDetails> createState() => _CreateAccountState();
+  State<UserInformation> createState() => _UserInformationState();
 }
 
-class _CreateAccountState extends State<CreateAccountDetails> {
-  final firsrName = TextEditingController();
-  final lastName = TextEditingController();
+class _UserInformationState extends State<UserInformation> {
+  final name = TextEditingController();
+  final address = TextEditingController();
   final DOB = TextEditingController();
   final Gmail = TextEditingController();
   final MobileNumber = TextEditingController();
@@ -23,6 +21,7 @@ class _CreateAccountState extends State<CreateAccountDetails> {
   int tappedContainerIndex = -1;
   String selectedTitle = '';
 
+//handling container taps
   void _handleTap(int index) {
     setState(() {
       tappedContainerIndex = index;
@@ -35,11 +34,12 @@ class _CreateAccountState extends State<CreateAccountDetails> {
       }
     });
   }
+
   //error handling fun.
   void detailHandling() {
-    if (firsrName.text.isEmpty) {
+    if (name.text.isEmpty) {
       throw Exception("Please fill all the details.");
-    } else if (lastName.text.isEmpty) {
+    } else if (address.text.isEmpty) {
       throw Exception("Please fill all the details");
     } else if (DOB.text.isEmpty) {
       throw Exception("Please fill all the details");
@@ -53,32 +53,34 @@ class _CreateAccountState extends State<CreateAccountDetails> {
       throw Exception("Please fill all the details");
     }
   }
-//adding data to database
+
+//adding user to database
   Future<void> createData() async {
+    DateTime now=DateTime.now();
     try {
-      CollectionReference db = FirebaseFirestore.instance.collection(
-          "Booking Details");
+      CollectionReference db = FirebaseFirestore.instance.collection("User");
       detailHandling();
       await db.add({
         "title": selectedTitle,
-        "firstName": firsrName.text,
-        "lastName": lastName.text,
+        "name": name.text,
+        "address": address.text,
         "DOB": DOB.text,
         "Gmail": Gmail.text,
         "MobileNumber": MobileNumber.text,
         "Gender": Gender.text,
+        "createdAt":now,
       });
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.green,
-          content: Text('Details Saved Successfully!'),
+          content: Text('Details Saved'),
           duration: Duration(seconds: 2),
         ),
       );
       Future.delayed(const Duration(seconds: 5));
       // ignore: use_build_context_synchronously
       Navigator.push(context,
-          (MaterialPageRoute(builder: (context) => const Payment())));
+          (MaterialPageRoute(builder: (context) => const ServicesOpt())));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -111,9 +113,9 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                     icon: const Icon(Icons.arrow_back_rounded),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(left: 65),
+                    margin: const EdgeInsets.only(left: 75),
                     child: const Text(
-                      "Details for Reservation",
+                      "User Details",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
@@ -203,15 +205,15 @@ class _CreateAccountState extends State<CreateAccountDetails> {
             Padding(
                 padding: const EdgeInsets.only(left: 18.0),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width*0.91,
+                  width: MediaQuery.of(context).size.width * 0.91,
                   height: 55,
                   child: TextFormField(
-                    controller: firsrName,
+                    controller: name,
                     cursorColor: Colors.black54,
                     decoration: InputDecoration(
                       fillColor: Colors.grey.shade200,
                       filled: true,
-                      hintText: "First Name",
+                      hintText: "Name",
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(
@@ -233,15 +235,15 @@ class _CreateAccountState extends State<CreateAccountDetails> {
             Padding(
                 padding: const EdgeInsets.only(left: 18.0),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width*0.91,
+                  width: MediaQuery.of(context).size.width * 0.91,
                   height: 55,
                   child: TextFormField(
-                    controller: lastName,
+                    controller: address,
                     cursorColor: Colors.black54,
                     decoration: InputDecoration(
                       fillColor: Colors.grey.shade200,
                       filled: true,
-                      hintText: "Last Name",
+                      hintText: "Address",
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(
@@ -263,9 +265,10 @@ class _CreateAccountState extends State<CreateAccountDetails> {
             Padding(
                 padding: const EdgeInsets.only(left: 18.0),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width*0.91,
+                  width: MediaQuery.of(context).size.width * 0.91,
                   height: 55,
                   child: TextFormField(
+                    keyboardType: TextInputType.datetime,
                     controller: DOB,
                     cursorColor: Colors.black54,
                     decoration: InputDecoration(
@@ -293,7 +296,7 @@ class _CreateAccountState extends State<CreateAccountDetails> {
             Padding(
                 padding: const EdgeInsets.only(left: 18.0),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width*0.91,
+                  width: MediaQuery.of(context).size.width * 0.91,
                   height: 55,
                   child: TextFormField(
                     controller: Gmail,
@@ -323,7 +326,7 @@ class _CreateAccountState extends State<CreateAccountDetails> {
             Padding(
                 padding: const EdgeInsets.only(left: 18.0),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width*0.91,
+                  width: MediaQuery.of(context).size.width * 0.91,
                   height: 55,
                   child: TextFormField(
                     controller: MobileNumber,
@@ -354,7 +357,7 @@ class _CreateAccountState extends State<CreateAccountDetails> {
             Padding(
                 padding: const EdgeInsets.only(left: 18.0),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width*0.91,
+                  width: MediaQuery.of(context).size.width * 0.91,
                   height: 55,
                   child: TextFormField(
                     controller: Gender,
@@ -378,7 +381,7 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                     ),
                   ),
                 )),
-             SizedBox(
+            SizedBox(
               height: 70.h,
             ),
             Padding(
@@ -387,7 +390,7 @@ class _CreateAccountState extends State<CreateAccountDetails> {
                 onTap: createData,
                 child: Container(
                   height: 50,
-                  width: MediaQuery.of(context).size.width*0.91,
+                  width: MediaQuery.of(context).size.width * 0.91,
                   decoration: BoxDecoration(
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(30)),

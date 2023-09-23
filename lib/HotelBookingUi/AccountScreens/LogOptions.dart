@@ -51,7 +51,7 @@ class _LogGmailPageState extends State<LogGmailPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenheight = 0.02;
+
     return Scaffold(
         body: SingleChildScrollView(
       child: SafeArea(
@@ -95,10 +95,9 @@ class _LogGmailPageState extends State<LogGmailPage> {
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: Colors.grey)),
                   child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 100.0),
+                        padding: const EdgeInsets.only(left: 83.0),
                         child: Image.asset(
                           "assets/logos/img_7.png",
                           height: 30,

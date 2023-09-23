@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gitson/HotelBookingUi/AccountScreens/CreateAcctDetails.dart';
+import 'package:gitson/HotelBookingUi/BookingScreens/HotelPreview.dart';
+import 'package:gitson/HotelBookingUi/ModesOfBooking/Completed.dart';
 import 'package:gitson/HotelBookingUi/ProfileScreens/ProfilePage.dart';
 import 'package:gitson/Models/HotelModel/Hotel.dart';
 import 'package:gitson/Services/ServicesOpt.dart';
@@ -37,7 +38,7 @@ class _SearchHotelsState extends State<SearchHotels> {
       Navigator.push(context, MaterialPageRoute(builder: (context)=>const ProfilePage()));
     }
     if(selectedIndex==1){
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>const CreateAccountDetails()));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>const CompletedBookings()));
     }
   }
 
@@ -206,93 +207,98 @@ class _SearchHotelsState extends State<SearchHotels> {
                         SizedBox(
                           height: 150,
                           width: 380,
-                          child: Card(
-                            color: Colors.white,
-                            shadowColor: Colors.grey,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            elevation: 0.2,
-                            child: Stack(
-                              children: [
-                                Row(
-                                  children: [
-                                    Center(
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 15.0),
-                                        child: Container(
-                                          height: 110,
-                                          width: 120,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: AssetImage(
-                                                hotels[index].img,
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const HotelPreview()));
+                            },
+                            child: Card(
+                              color: Colors.white,
+                              shadowColor: Colors.grey,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              elevation: 0.2,
+                              child: Stack(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Center(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 15.0),
+                                          child: Container(
+                                            height: 110,
+                                            width: 120,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: AssetImage(
+                                                  hotels[index].img,
+                                                ),
                                               ),
+                                              color: Colors.white,
                                             ),
-                                            color: Colors.white,
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 20.0),
-                                          child: Text(
-                                            hotels[index].hotelName,
-                                            style: const TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 20.0),
+                                            child: Text(
+                                              hotels[index].hotelName,
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        Text(hotels[index].location),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        const Text("4.8 ratings"),
-                                      ],
-                                    ),
-                                     SizedBox(
-                                      width: 10.w,
-                                    ),
-                                    Column(
-                                      children: [
-                                        const SizedBox(
-                                          height: 25,
-                                        ),
-                                        Text(
-                                          hotels[index].rent,
-                                          style: const TextStyle(fontWeight: FontWeight.bold,
-                                              color: Colors.green),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        const Text("/night"),
-                                        const SizedBox(
-                                          height: 25,
-                                        ),
-                                        const Icon(
-                                            Icons.bookmark_border_rounded),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Text(hotels[index].location),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          const Text("4.8 ratings"),
+                                        ],
+                                      ),
+                                       SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 25,
+                                          ),
+                                          Text(
+                                            hotels[index].rent,
+                                            style: const TextStyle(fontWeight: FontWeight.bold,
+                                                color: Colors.green),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          const Text("/night"),
+                                          const SizedBox(
+                                            height: 25,
+                                          ),
+                                          const Icon(
+                                              Icons.bookmark_border_rounded),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

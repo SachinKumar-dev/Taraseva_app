@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gitson/HotelBookingUi/AccountScreens/LogGmailPage.dart';
+import 'package:gitson/HotelBookingUi/AccountScreens/LogOptions.dart';
 import 'package:gitson/HotelBookingUi/PaymentScreens/AdvancePayment.dart';
 
 import 'editProfile.dart';
@@ -26,22 +26,30 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> readData() async {
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('user').get();
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('User')
+          .orderBy('createdAt', descending: true)
+          .limit(1)
+          .get();
 
-    setState(() {
-      documents = querySnapshot.docs;
-    });
+      setState(() {
+        documents = querySnapshot.docs;
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
   }
+
   //logOut
   Future<void> logOut() async {
     try {
-      await FirebaseAuth.instance.signOut();
-      // Redirect the user to the login or home page after successful sign-out
-      // ignore: use_build_context_synchronously
+     setState(()  {
+        FirebaseAuth.instance.signOut();
+     });
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const LogGmailPage()), // Replace with your login page
+        MaterialPageRoute(builder: (context) => const LogGmailPage()),
             (route) => false,
       );
     } catch (e) {
@@ -64,8 +72,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 Row(
                   children: [
                     Image.asset(
-                      "assets/images/img_13.png",
-                      scale: 20,
+                      "assets/logos/img_16.png",
+                      scale: 18,
                     ),
                     const Padding(
                       padding: EdgeInsets.all(15.0),
@@ -108,8 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           Center(
                             child: Text(
-                              documents[index]["firstName"] +
-                                  (documents[index]["lastName"]),
+                              documents[index]["name"],
                               style: const TextStyle(
                                 fontSize: 30,
                               ),
@@ -144,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   builder: (context) => const Profile())));
                         },
                         child: const Text(
-                          "Edit Profile",
+                          "Profile",
                           style: TextStyle(fontSize: 20),
                         ),
                       ),

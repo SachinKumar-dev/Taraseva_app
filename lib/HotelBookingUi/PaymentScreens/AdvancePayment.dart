@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gitson/HotelBookingUi/BookingScreens/SearchHotels.dart';
 
 class Payment extends StatefulWidget {
   const Payment({super.key});
@@ -9,6 +11,17 @@ class Payment extends StatefulWidget {
 
 class _PaymentState extends State<Payment> {
   int selectedValue = -1;
+  void done(){
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.green,
+        content:Text('Reservation is made successfully'),
+        duration: Duration(seconds: 2),)
+    );
+    Future.delayed(Duration(seconds: 2));
+    Navigator.push(context,
+        (MaterialPageRoute(builder: (context) => const SearchHotels())));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +45,10 @@ class _PaymentState extends State<Payment> {
                       icon: const Icon(Icons.arrow_back_rounded),
                     ),
                     const Padding(
-                      padding: EdgeInsets.only(left: 130.0),
+                      padding: EdgeInsets.only(left: 90.0),
                       child: Text(
                         "Payment",
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 25),
                       ),
                     ),
                   ],
@@ -73,7 +86,7 @@ class _PaymentState extends State<Payment> {
                 padding: const EdgeInsets.only(left: 18.0),
                 child: SizedBox(
                   height: 90,
-                  width: 380,
+                  width: MediaQuery.of(context).size.width*0.91,
                   child: Card(
                     shadowColor: Colors.white,
                     shape: RoundedRectangleBorder(
@@ -110,7 +123,7 @@ class _PaymentState extends State<Payment> {
                 padding: const EdgeInsets.only(left: 18.0),
                 child: SizedBox(
                   height: 90,
-                  width: 380,
+                  width: MediaQuery.of(context).size.width*0.91,
                   child: Card(
                     shadowColor: Colors.white,
                     shape: RoundedRectangleBorder(
@@ -147,7 +160,7 @@ class _PaymentState extends State<Payment> {
                 padding: const EdgeInsets.only(left: 18.0),
                 child: SizedBox(
                   height: 90,
-                  width: 380,
+                  width: MediaQuery.of(context).size.width*0.91,
                   child: Card(
                     shadowColor: Colors.white,
                     shape: RoundedRectangleBorder(
@@ -184,7 +197,7 @@ class _PaymentState extends State<Payment> {
                 padding: const EdgeInsets.only(left: 18.0),
                 child: SizedBox(
                   height: 90,
-                  width: 380,
+                  width: MediaQuery.of(context).size.width*0.91,
                   child: Card(
                     shadowColor: Colors.white,
                     shape: RoundedRectangleBorder(
@@ -214,8 +227,8 @@ class _PaymentState extends State<Payment> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 160,
+               SizedBox(
+                height: 100.h,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20.0),
@@ -223,27 +236,22 @@ class _PaymentState extends State<Payment> {
                   onTap: () {
                     //logic
                   },
-                  child: Container(
-                    height: 50,
-                    width: 380,
-                    decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(30)),
-                    child: const Center(
-                        child: Text(
-                      "Continue",
-                      style: TextStyle(fontSize: 15, color: Colors.white),
-                    )),
+                  child: GestureDetector(
+                    onTap: done,
+                    child: Container(
+                      height: 50,
+                      width: MediaQuery.of(context).size.width*0.91,
+                      decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const Center(
+                          child: Text(
+                        "Continue",
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      )),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Container(
-                height: 25,
-                width: double.infinity,
-                color: Colors.green,
               ),
             ],
           ),

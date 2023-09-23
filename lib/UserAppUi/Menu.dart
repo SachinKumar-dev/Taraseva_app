@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gitson/HotelBookingUi/AccountScreens/LogOptions.dart';
 import 'package:gitson/Services/ServicesOpt.dart';
-import 'package:gitson/UserAppUi/AppSettings.dart';
 import 'package:gitson/UserAppUi/EditProfile.dart';
 import 'package:gitson/UserAppUi/HomeOne.dart';
 import 'package:gitson/UserAppUi/PaymentModes.dart';
@@ -20,7 +21,19 @@ class _MenuState extends State<Menu> {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const ServicesOpt()));
   }
-
+  //logOut
+  Future<void> logOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const LogGmailPage()), // Replace with your login page
+            (route) => false,
+      );
+    } catch (e) {
+      print("Error during logout: $e");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -239,38 +252,6 @@ class _MenuState extends State<Menu> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Image.asset(
-                        "assets/images/img_20.png",
-                        scale: 18,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const AppSettings()));
-                        },
-                        child: const Text(
-                          "App Settings",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
                         "assets/images/img_19.png",
                         scale: 15,
                       ),
@@ -336,6 +317,30 @@ class _MenuState extends State<Menu> {
                       child: Text(
                         "Privacy Policy",
                         style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(Icons.logout),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: logOut,
+                        child: const Text(
+                          "Log Out",
+                          style: TextStyle(fontSize: 20),
+                        ),
                       ),
                     ),
                   ],

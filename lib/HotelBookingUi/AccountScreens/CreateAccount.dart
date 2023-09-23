@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gitson/HotelBookingUi/AccountScreens/LogPage.dart';
+import 'package:gitson/Services/Onboard.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -74,6 +76,9 @@ class _CreateAccountState extends State<CreateAccount> {
                     Icons.arrow_back_rounded,
                     size: 30,
                   )),
+              SizedBox(
+                height: 30.h,
+              ),
               Padding(
                 padding: EdgeInsets.only(left: 20.0.w),
                 child: Text("Create your",
@@ -88,8 +93,8 @@ class _CreateAccountState extends State<CreateAccount> {
                       fontSize: 50,
                     )),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 30.h,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 21.0),
@@ -207,99 +212,6 @@ class _CreateAccountState extends State<CreateAccount> {
               SizedBox(
                 height: 15.h,
               ),
-              const Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Divider(
-                        height: 20,
-                        thickness: 1,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "or continue with",
-                    style: TextStyle(fontSize: 20, color: Colors.black54),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Divider(
-                        height: 20,
-                        thickness: 1,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: 60,
-                    width: 90,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
-                        border: Border.all(color: Colors.grey)),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: 15,
-                          left: 30,
-                          child: Image.asset(
-                            "assets/images/img_1.png",
-                            height: 30,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 60,
-                    width: 90,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
-                        border: Border.all(color: Colors.grey)),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: 17,
-                          left: 30,
-                          child: Image.asset(
-                            "assets/images/img.png",
-                            height: 26,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 60,
-                    width: 90,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
-                        border: Border.all(color: Colors.grey)),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: 15,
-                          left: 30,
-                          child: Image.asset(
-                            "assets/images/img_2.png",
-                            height: 28,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
               const SizedBox(
                 height: 15,
               ),
@@ -313,8 +225,8 @@ class _CreateAccountState extends State<CreateAccount> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
+                      onTap: (){
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const LogPage()));
