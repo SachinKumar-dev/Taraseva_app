@@ -36,7 +36,7 @@ class _HotelPreviewState extends State<HotelPreview> {
                 Image.asset(
                   "assets/logos/loct.png",
                   scale: 20,
-                  color: Colors.green,
+                  color: const Color(0xff0E6B56),
                 ),
                 Text(
                   "79 Place de la Madelne Wokas Pure",
@@ -317,7 +317,7 @@ class _HotelPreviewState extends State<HotelPreview> {
                   Text(
                     "See All",
                     style: GoogleFonts.signikaNegative(
-                        fontSize: 20, color: Colors.green),
+                        fontSize: 20, color: const Color(0xff0E6B56)),
                   ),
                 ],
               ),
@@ -357,7 +357,7 @@ class _HotelPreviewState extends State<HotelPreview> {
                       height: 50,
                       width: 100.w,
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        color:const Color(0xff0E6B56),
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: const Center(
@@ -405,7 +405,7 @@ class _HotelPreviewState extends State<HotelPreview> {
                       height: 50,
                       width: 100.w,
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: const Color(0xff0E6B56),
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: const Center(
@@ -453,7 +453,7 @@ class _HotelPreviewState extends State<HotelPreview> {
                       height: 50,
                       width: 100.w,
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        color:const Color(0xff0E6B56),
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: const Center(
@@ -475,7 +475,7 @@ class _HotelPreviewState extends State<HotelPreview> {
                 Text(
                   "\$29/night",
                   style: GoogleFonts.signikaNegative(
-                      fontSize: 28, color: Colors.green),
+                      fontSize: 28, color: const Color(0xff0E6B56)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -490,7 +490,7 @@ class _HotelPreviewState extends State<HotelPreview> {
                       height: 60,
                       width: MediaQuery.of(context).size.width * 0.62,
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: const Color(0xff0E6B56),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Center(

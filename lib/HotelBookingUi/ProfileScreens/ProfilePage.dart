@@ -3,9 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gitson/HotelBookingUi/AccountScreens/LogOptions.dart';
 import 'package:gitson/HotelBookingUi/PaymentScreens/AdvancePayment.dart';
-
+import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../Services/Onboard.dart';
 import 'editProfile.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -16,6 +17,28 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  //handling taps of navBar
+  int selectedIndex = 2;
+
+  //handling the navBar
+  void onTap(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+    if (selectedIndex == 3) {
+      context.go("/userMainScreen");
+    }
+    if (selectedIndex == 2) {
+      context.go("/profile");
+    }
+    if (selectedIndex == 1) {
+      context.go('/OngoingBookings');
+    }
+    if (selectedIndex == 0) {
+      context.go('/searchHotels');
+    }
+  }
+
   bool _value = false;
   List<DocumentSnapshot> documents = [];
 
@@ -44,14 +67,10 @@ class _ProfilePageState extends State<ProfilePage> {
   //logOut
   Future<void> logOut() async {
     try {
-     setState(()  {
-        FirebaseAuth.instance.signOut();
-     });
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const LogGmailPage()),
-            (route) => false,
-      );
+      await FirebaseAuth.instance.signOut();
+      var sharedPref = await SharedPreferences.getInstance();
+      sharedPref.setBool(OnboardState.KEYLOGIN, false);
+      context.go('/signup');
     } catch (e) {
       print("Error during logout: $e");
     }
@@ -60,220 +79,259 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 18.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  children: [
-                    Image.asset(
-                      "assets/logos/img_16.png",
-                      scale: 18,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text(
-                        "Profile",
-                        style: TextStyle(
-                          fontSize: 28,
+      body: WillPopScope(
+        onWillPop: () {
+          context.go('/searchHotels');
+          return Future.value(false);
+        },
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 18.0),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        "assets/logos/img_16.png",
+                        scale: 18,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Text(
+                          "Profile",
+                          style: TextStyle(
+                            fontSize: 28,
+                          ),
                         ),
                       ),
-                    ),
-                     SizedBox(
-                      width: 210.w,
-                    ),
-                    Transform.rotate(
-                        angle: -90 * 3.1415927 / 180,
-                        child: Image.asset(
-                          "assets/images/img_14.png",
-                          scale: 20,
-                        ))
-                  ],
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                const CircleAvatar(
-                  radius: 80,
-                  backgroundColor: Colors.black,
-                  backgroundImage: NetworkImage(
-                    "https://images.unsplash.com/photo-1554126807-6b10f6f6692a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Ym95fGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+                      SizedBox(
+                        width: 210.w,
+                      ),
+                      Transform.rotate(
+                          angle: -90 * 3.1415927 / 180,
+                          child: Image.asset(
+                            "assets/images/img_14.png",
+                            scale: 20,
+                          ))
+                    ],
                   ),
-                ),
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: documents.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Center(
-                            child: Text(
-                              documents[index]["name"],
-                              style: const TextStyle(
-                                fontSize: 30,
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  SizedBox(
+                    height: 170.h,
+                    child: ListView.builder(
+                        itemCount: documents.length,
+                        itemBuilder: (context, index) {
+                          String imageUrl = documents[index]["imageUrl"];
+                          return CircleAvatar(
+                            radius: 80,
+                            backgroundColor: Colors.black,
+                            child: ClipOval(
+                              child: Image.network(
+                                imageUrl,
+                                fit: BoxFit.cover,
+                                // Use BoxFit.cover to fit the image within the circle
+                                width: 160,
+                                // Adjust the width as needed
+                                height: 160, // Adjust the height as needed
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            documents[index]["Gmail"],
-                            style: const TextStyle(fontSize: 18),
-                          )
-                        ],
-                      );
-                    }),
-                const SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  children: [
-                    Image.asset(
-                      "assets/images/img_6.png",
-                      scale: 17,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              (MaterialPageRoute(
-                                  builder: (context) => const Profile())));
-                        },
-                        child: const Text(
-                          "Profile",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Image.asset(
-                      "assets/images/img_7.png",
-                      scale: 17,
-                    ),
-                     Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: GestureDetector(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const Payment()));
-                        },
-                        child: const Text(
-
-                          "Payment",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Image.asset(
-                      "assets/images/img_8.png",
-                      scale: 17,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text(
-                        "Notifications",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Image.asset(
-                      "assets/images/img_9.png",
-                      scale: 17,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text(
-                        "Security",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(children: [
-                  Image.asset(
-                    "assets/images/img_10.png",
-                    scale: 17,
+                          );
+                        }),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      "Help",
-                      style: TextStyle(fontSize: 20),
-                    ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: documents.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Center(
+                              child: Text(
+                                documents[index]["name"],
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Text(
+                              documents[index]["Gmail"],
+                              style: const TextStyle(fontSize: 18),
+                            )
+                          ],
+                        );
+                      }),
+                  const SizedBox(
+                    height: 30,
                   ),
-                ]),
-                Row(
-                  children: [
+                  Row(
+                    children: [
+                      Image.asset(
+                        "assets/images/img_6.png",
+                        scale: 17,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                (MaterialPageRoute(
+                                    builder: (context) => const Profile())));
+                          },
+                          child: const Text(
+                            "Profile",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        "assets/images/img_7.png",
+                        scale: 17,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Payment()));
+                          },
+                          child: const Text(
+                            "Payment",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        "assets/images/img_8.png",
+                        scale: 17,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Text(
+                          "Notifications",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(children: [
                     Image.asset(
-                      "assets/images/img_11.png",
+                      "assets/images/img_10.png",
                       scale: 17,
                     ),
                     const Padding(
                       padding: EdgeInsets.all(15.0),
                       child: Text(
-                        "Dark Theme",
+                        "Help",
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
-                     SizedBox(
-                      width: 150.w,
-                    ),
-                    CupertinoSwitch(
-                      value: _value,
-                      activeColor: Colors.green,
-                      trackColor: Colors.grey.shade300,
-                      thumbColor: Colors.white,
-                      onChanged: (newValue) {
-                        setState(() {
-                          _value = newValue;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Image.asset(
-                      "assets/images/img_12.png",
-                      scale: 17,
-                      color: Colors.red,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: GestureDetector(
-                        onTap:logOut,
-                        child: const Text(
-                          "Logout",
+                  ]),
+                  Row(
+                    children: [
+                      Image.asset(
+                        "assets/images/img_11.png",
+                        scale: 17,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Text(
+                          "Dark Theme",
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      SizedBox(
+                        width: 150.w,
+                      ),
+                      CupertinoSwitch(
+                        value: _value,
+                        activeColor: const Color(0xff0E6B56),
+                        trackColor: Colors.grey.shade300,
+                        thumbColor: Colors.white,
+                        onChanged: (newValue) {
+                          setState(() {
+                            _value = newValue;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        "assets/images/img_12.png",
+                        scale: 17,
+                        color: Colors.red,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: GestureDetector(
+                          onTap: logOut,
+                          child: const Text(
+                            "Logout",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: const Color(0xff0E6B56),
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_filled),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book_rounded),
+            label: "Booking",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage("assets/logos/img_10.png"),
+              color: Colors.grey,
+            ),
+            label: "Return",
+          ),
+        ],
+        currentIndex: selectedIndex,
+        onTap: onTap,
       ),
     );
   }

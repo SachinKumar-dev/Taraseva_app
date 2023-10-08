@@ -14,7 +14,7 @@ class _MyWalletState extends State<MyWallet> {
     return Container(
       height: double.infinity,
       width: double.infinity,
-      color: Colors.green,
+      color: Color(0xff0E6B56),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -22,7 +22,7 @@ class _MyWalletState extends State<MyWallet> {
           elevation: 0,
           toolbarHeight: 90,
           leading: IconButton(
-            color: Colors.black,
+            color: Colors.white,
             onPressed: () {
               Navigator.pop(context);
             },
@@ -30,7 +30,7 @@ class _MyWalletState extends State<MyWallet> {
           ),
           title: const Text(
             "My Wallet",
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.white),
           ),
         ),
         body: SingleChildScrollView(
@@ -76,11 +76,11 @@ class _MyWalletState extends State<MyWallet> {
                           width: 350.w,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Colors.green),
+                              color:const Color(0xff0E6B56)),
                           child: const Center(
                               child: Text(
                             "ADD MONEY",
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 15,color: Colors.white),
                           )),
                         ),
                       ),

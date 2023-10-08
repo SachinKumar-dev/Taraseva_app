@@ -11,7 +11,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Color(0xff0E6B56),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -25,7 +25,7 @@ class _SignInState extends State<SignIn> {
                         //logic
                       },
                       icon: const Icon(
-                        Icons.arrow_back,
+                        Icons.arrow_back,color: Colors.white,
                         size: 30,
                       ),
                     ),
@@ -33,7 +33,7 @@ class _SignInState extends State<SignIn> {
                       padding: EdgeInsets.only(left: 18.0),
                       child: Text(
                         "Sign In",
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
                   ],
@@ -115,11 +115,11 @@ class _SignInState extends State<SignIn> {
                     width: 360,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.green.shade200),
+                        color:Color(0xff0E6B56)),
                     child: const Center(
                         child: Text(
                       "Sign In",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                     )),
                   ),
                 ),

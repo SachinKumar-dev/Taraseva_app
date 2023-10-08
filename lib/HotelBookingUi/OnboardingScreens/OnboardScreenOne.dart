@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gitson/HotelBookingUi/BookingScreens/SearchHotels.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardOne extends StatefulWidget {
@@ -26,9 +28,20 @@ class _OnboardOneState extends State<OnboardOne> {
         isLastPage = _controller.page == 1;
       });
     });
+    checkOnboardingStatus();
   }
+  //shared pref
+  Future<void> checkOnboardingStatus() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final onboardingShown = prefs.getBool('onboardingShown') ?? false;
 
-  void _navigateToNextScreen() {
+    if (onboardingShown) {
+      // Onboarding has been shown before, navigate to a different screen
+      context.go('/searchHotels');
+    }
+  }
+//page
+  Future<void> _navigateToNextScreen() async {
     if (isLastPage) {
       // Navigate to the next screen
       Navigator.push(
@@ -37,6 +50,9 @@ class _OnboardOneState extends State<OnboardOne> {
           builder: (context) => const SearchHotels(),
         ),
       );
+      // Mark that the onboarding has been shown
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('onboardingShown', true);
     } else {
       // Move to the next page
       _controller.nextPage(
@@ -161,7 +177,7 @@ class _OnboardOneState extends State<OnboardOne> {
                       height: 70,
                       width: screen.width * 0.9,
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: Color(0xff0E6B56),
                         borderRadius: BorderRadius.circular(35.r),
                       ),
                       child: Center(
@@ -191,7 +207,7 @@ class _OnboardOneState extends State<OnboardOne> {
                         child: Text(
                           "Skip",
                           style: TextStyle(
-                            color: Colors.green,
+                            color: Color(0xff0E6B56),
                             fontSize: 20.sp,
                           ),
                         ),

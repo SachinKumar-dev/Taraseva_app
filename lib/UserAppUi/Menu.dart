@@ -1,12 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gitson/HotelBookingUi/AccountScreens/LogOptions.dart';
+import 'package:gitson/HotelBookingUi/AccountScreens/SignUpPage.dart';
 import 'package:gitson/Services/ServicesOpt.dart';
 import 'package:gitson/UserAppUi/EditProfile.dart';
 import 'package:gitson/UserAppUi/HomeOne.dart';
 import 'package:gitson/UserAppUi/PaymentModes.dart';
 import 'package:gitson/UserAppUi/Support.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../Services/Onboard.dart';
 import 'MyWallet.dart';
+import 'ProfileForCab.dart';
 
 class Menu extends StatefulWidget {
   const Menu({super.key});
@@ -16,52 +24,93 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  List<DocumentSnapshot> documents = [];
+
+  Future<void> readData() async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('User')
+          .orderBy('createdAt', descending: true)
+          .limit(1)
+          .get();
+
+      setState(() {
+        documents = querySnapshot.docs;
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    readData();
+  }
+
   //back on services page
   void back() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const ServicesOpt()));
   }
+
   //logOut
-  Future<void> logOut() async {
+  Future<void> logOut(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
+      // Clear any user-specific data if needed
+
+      // Navigate to the SignUp page and remove all previous routes
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const LogGmailPage()), // Replace with your login page
-            (route) => false,
+        MaterialPageRoute(builder: (context) => const SignUp()),
+        (route) => false,
       );
     } catch (e) {
       print("Error during logout: $e");
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         height: double.infinity,
         width: double.infinity,
-        color: Colors.green,
+        color: const Color(0xff0E6B56),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            toolbarHeight: 100,
-            actions: [
-              GestureDetector(
-                onTap: back,
-                child: Image.asset(
-                  "assets/logos/img_10.png",
-                  color: Colors.white,
-                  scale: 20,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              toolbarHeight: 100,
+              actions: [
+                GestureDetector(
+                  onTap: back,
+                  child: Image.asset(
+                    "assets/logos/img_10.png",
+                    color: Colors.white,
+                    scale: 20,
+                  ),
                 ),
-              ),
-            ],
-            title: const Text(
-              " Hey Provat Mondal\n Grab Your New Ride",
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
-          body: const HomeOne(),
+              ],
+              title: SizedBox(
+                  height: 100,
+                  width: 400,
+                  child: ListView.builder(
+                    itemCount: documents.length,
+                    itemBuilder: (context, index) {
+                      return Text(
+                        "${"Hey " + documents[index]['name']}\nGrab Your New Ride",
+                        style: GoogleFonts.roboto(color: Colors.white),
+                      );
+                    },
+                  ))),
+          body: WillPopScope(
+              onWillPop: () {
+                context.go("/userMainScreen");
+                return Future.value(false);
+              },
+              child: const HomeOne()),
           drawer: Drawer(
             child: ListView(
               children: [
@@ -69,41 +118,61 @@ class _MenuState extends State<Menu> {
                   height: 200,
                   child: DrawerHeader(
                       decoration: const BoxDecoration(
-                        color: Colors.green,
+                        color: Color(0xff0E6B56),
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 30),
-                            child: const CircleAvatar(
-                              radius: 70,
-                              backgroundImage: NetworkImage(
-                                  "https://images.unsplash.com/photo-1554126807-6b10f6f6692a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Ym95fGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60"),
-                            ),
+                          SizedBox(
+                            height: 170.h,
+                            width: 170.h,
+                            child: ListView.builder(
+                                itemCount: documents.length,
+                                itemBuilder: (context, index) {
+                                  String imageUrl =
+                                      documents[index]["imageUrl"];
+                                  return CircleAvatar(
+                                    radius: 80,
+                                    backgroundColor: Colors.black,
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        imageUrl,
+                                        fit: BoxFit.cover,
+                                        width: 160,
+                                        height: 160,
+                                      ),
+                                    ),
+                                  );
+                                }),
                           ),
-                          const Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(top: 18.0),
+                                padding: const EdgeInsets.only(top: 18.0),
                                 child: Text(
                                   "Welcome",
                                   style: TextStyle(
-                                      fontSize: 18, color: Colors.white),
+                                      fontSize: 20.sp, color: Colors.white),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
-                              Text(
-                                "Provat Mondal",
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white),
-                                softWrap: true,
-                                maxLines: 5,
-                                textAlign: TextAlign.center,
-                              ),
+                              SizedBox(
+                                  height: 100,
+                                  width: 100,
+                                  child: ListView.builder(
+                                    itemCount: documents.length,
+                                    itemBuilder: (context, index) {
+                                      return Text(
+                                        documents[index]['name'],
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.sp),
+                                      );
+                                    },
+                                  ))
                             ],
                           ),
                         ],
@@ -128,7 +197,7 @@ class _MenuState extends State<Menu> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const EditProfile()));
+                                  builder: (context) => const ProfileCab()));
                         },
                         child: const Text(
                           "Profile",
@@ -182,11 +251,16 @@ class _MenuState extends State<Menu> {
                     const SizedBox(
                       width: 20,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Trips History",
-                        style: TextStyle(fontSize: 20),
+                     Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: (){
+                          context.push("/trips");
+                        },
+                        child: const Text(
+                          "Trips History",
+                          style: TextStyle(fontSize: 20),
+                        ),
                       ),
                     ),
                   ],
@@ -259,9 +333,14 @@ class _MenuState extends State<Menu> {
                     const SizedBox(
                       width: 20,
                     ),
-                    const Text(
-                      "Manual Booking",
-                      style: TextStyle(fontSize: 20),
+                    GestureDetector(
+                      onTap: (){
+                        context.push("/manualBooking");
+                      },
+                      child: const Text(
+                        "Manual Booking",
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
                   ],
                 ),
@@ -302,30 +381,6 @@ class _MenuState extends State<Menu> {
                 ),
                 Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        "assets/images/img_17.png",
-                        scale: 20,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Privacy Policy",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Icon(Icons.logout),
@@ -336,7 +391,15 @@ class _MenuState extends State<Menu> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: GestureDetector(
-                        onTap: logOut,
+                        onTap: () async {
+                          try {
+                            await FirebaseAuth.instance.signOut();
+                            var sharedPref = await SharedPreferences.getInstance();
+                            sharedPref.setBool(OnboardState.KEYLOGIN, false);
+                            context.go('/signup');} catch (e) {
+                            print("Error during logout: $e");
+                          }
+                        },
                         child: const Text(
                           "Log Out",
                           style: TextStyle(fontSize: 20),

@@ -31,12 +31,12 @@ class _HomeOneState extends State<HomeOne> {
               decoration: InputDecoration(
                   prefixIcon: Image.asset(
                     'assets/logos/img_1.png',
-                    color: Colors.green,
+                    color:const Color(0xff0E6B56),
                     scale: 20,
                   ),
                   suffixIcon: (const Icon(
                     Icons.car_rental,
-                    color: Colors.green,
+                    color:Color(0xff0E6B56),
                     size: 30,
                   )),
                   hintText: "Where To?",

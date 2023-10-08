@@ -16,7 +16,7 @@ class _PaymentModesState extends State<PaymentModes> {
     return Container(
         height: double.infinity,
         width: double.infinity,
-        color: Colors.green,
+        color: Color(0xff0E6B56),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
@@ -28,11 +28,11 @@ class _PaymentModesState extends State<PaymentModes> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const Icon(Icons.arrow_back_rounded),
+              icon: const Icon(Icons.arrow_back_rounded,color: Colors.white,),
             ),
             title: const Text(
               "Payment Modes",
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.white),
             ),
           ),
           body: SingleChildScrollView(
@@ -62,7 +62,7 @@ class _PaymentModesState extends State<PaymentModes> {
                             width: MediaQuery.of(context).size.width * 0.9,
                             height: 45,
                             decoration: BoxDecoration(
-                              color: Colors.green.shade100,
+                              color:Color(0xff0E6B56),
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(15),
                                 topRight: Radius.circular(15),
@@ -72,7 +72,7 @@ class _PaymentModesState extends State<PaymentModes> {
                               padding: EdgeInsets.only(top: 12.0, left: 18),
                               child: Text(
                                 "Payment Methods",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 20,color: Colors.white),
                               ),
                             ),
                           ),
@@ -118,7 +118,7 @@ class _PaymentModesState extends State<PaymentModes> {
                                           selectedValue = value!;
                                         });
                                       },
-                                      activeColor: Colors.green),
+                                      activeColor:Color(0xff0E6B56)),
                                 ),
                               ),
                             ],
@@ -160,8 +160,7 @@ class _PaymentModesState extends State<PaymentModes> {
                                         selectedValue = value!;
                                       });
                                     },
-                                    activeColor: Colors
-                                        .green // Set the color of the selected radio button
+                                    activeColor: Color(0xff0E6B56),
                                     ),
                               ),
                             ],
@@ -176,7 +175,7 @@ class _PaymentModesState extends State<PaymentModes> {
                             width: 380,
                             height: 45,
                             decoration: BoxDecoration(
-                              color: Colors.green.shade100,
+                              color:Color(0xff0E6B56),
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(15),
                                 topRight: Radius.circular(15),
@@ -186,7 +185,7 @@ class _PaymentModesState extends State<PaymentModes> {
                               padding: EdgeInsets.only(top: 12.0, left: 18),
                               child: Text(
                                 "My Wallet",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 20,color: Colors.white),
                               ),
                             ),
                           ),
@@ -233,7 +232,7 @@ class _PaymentModesState extends State<PaymentModes> {
                                               selectedValue = value!;
                                             });
                                           },
-                                          activeColor: Colors.green),
+                                          activeColor: Color(0xff0E6B56)),
                                     ),
                                   ),
                                 ],
@@ -250,7 +249,7 @@ class _PaymentModesState extends State<PaymentModes> {
                             width: 380,
                             height: 45,
                             decoration: BoxDecoration(
-                              color: Colors.green.shade100,
+                              color:Color(0xff0E6B56),
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(15),
                                 topRight: Radius.circular(15),
@@ -260,7 +259,7 @@ class _PaymentModesState extends State<PaymentModes> {
                               padding: EdgeInsets.only(top: 12.0, left: 18),
                               child: Text(
                                 "Promotions",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 20,color: Colors.white),
                               ),
                             ),
                           ),
@@ -278,7 +277,7 @@ class _PaymentModesState extends State<PaymentModes> {
                               "Add Promo/Gift Code",
                               style: TextStyle(
                                 fontSize: 20.sp,
-                                color: Colors.green,
+                                color: Color(0xff0E6B56),
                               ),
                             ),
                           ),
@@ -303,13 +302,13 @@ class _PaymentModesState extends State<PaymentModes> {
                             width: MediaQuery.of(context).size.width * 0.9,
                             height: 60,
                             decoration: BoxDecoration(
-                              color: Colors.green.shade100,
+                              color: Color(0xff0E6B56),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: const Center(
                               child: Text(
                                 "Continue",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 20,color: Colors.white),
                               ),
                             ),
                           ),

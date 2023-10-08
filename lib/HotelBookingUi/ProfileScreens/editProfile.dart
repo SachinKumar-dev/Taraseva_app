@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -64,13 +65,26 @@ class _ProfileState extends State<Profile> {
               const SizedBox(
                 height: 30,
               ),
-              const CircleAvatar(
-                radius: 80,
-                backgroundColor: Colors.black,
-                backgroundImage: NetworkImage(
-                  "https://images.unsplash.com/photo-1554126807-6b10f6f6692a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Ym95fGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
-                ),
-              ),
+              SizedBox(
+                height: 170.h,
+              child: ListView.builder(
+                  itemCount:documents.length,
+                  itemBuilder: (context, index) {
+                    String imageUrl = documents[index]["imageUrl"];
+                    return
+                      CircleAvatar(
+                        radius: 80,
+                        backgroundColor: Colors.black,
+                        child: ClipOval(
+                          child: Image.network(
+                            imageUrl,
+                            fit: BoxFit.cover, // Use BoxFit.cover to fit the image within the circle
+                            width: 160,        // Adjust the width as needed
+                            height: 160,       // Adjust the height as needed
+                          ),
+                        ),
+                      );
+                  })),
               const SizedBox(
                 height: 20,
               ),

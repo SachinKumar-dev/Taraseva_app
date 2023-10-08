@@ -42,5 +42,185 @@ class Pandits {
         name: "Pandit Ram",
         experiences: "1 years",
         ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit HariOm",
+      experiences: "5 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Aditya",
+      experiences: "8 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Vikash",
+      experiences: "2 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Raghav",
+      experiences: "9 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Sukhi",
+      experiences: "7 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Ram",
+      experiences: "1 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit HariOm",
+      experiences: "5 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Aditya",
+      experiences: "8 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Vikash",
+      experiences: "2 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Raghav",
+      experiences: "9 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Sukhi",
+      experiences: "7 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Ram",
+      experiences: "1 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit HariOm",
+      experiences: "5 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Aditya",
+      experiences: "8 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Vikash",
+      experiences: "2 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Raghav",
+      experiences: "9 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Sukhi",
+      experiences: "7 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Ram",
+      experiences: "1 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit HariOm",
+      experiences: "5 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Aditya",
+      experiences: "8 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Vikash",
+      experiences: "2 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Raghav",
+      experiences: "9 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Sukhi",
+      experiences: "7 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Ram",
+      experiences: "1 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit HariOm",
+      experiences: "5 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Aditya",
+      experiences: "8 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Vikash",
+      experiences: "2 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Raghav",
+      experiences: "9 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Sukhi",
+      experiences: "7 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Ram",
+      experiences: "1 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit HariOm",
+      experiences: "5 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Aditya",
+      experiences: "8 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Vikash",
+      experiences: "2 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Raghav",
+      experiences: "9 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Sukhi",
+      experiences: "7 years",
+    ),
+    Pandits(
+      img: "assets/images/pandit.jpg",
+      name: "Pandit Ram",
+      experiences: "1 years",
+    ),
   ];
 }

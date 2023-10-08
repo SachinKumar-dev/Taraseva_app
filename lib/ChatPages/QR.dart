@@ -12,7 +12,7 @@ class _QRState extends State<QR> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Color(0xff0E6B56),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -26,7 +26,7 @@ class _QRState extends State<QR> {
                         Navigator.pop(context);
                       },
                       icon: const Icon(
-                        Icons.arrow_back,
+                        Icons.arrow_back,color: Colors.white,
                         size: 30,
                       ),
                     ),
@@ -34,7 +34,7 @@ class _QRState extends State<QR> {
                       padding: EdgeInsets.only(left: 18.0),
                       child: Text(
                         "Scanner",
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
                   ],

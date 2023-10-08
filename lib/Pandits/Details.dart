@@ -3,13 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Details extends StatefulWidget {
-  const Details({super.key});
+   const Details({super.key});
+
 
   @override
   State<Details> createState() => _DetailsState();
 }
 
 class _DetailsState extends State<Details> {
+
+
+
   @override
   Widget build(BuildContext context) {
     final dimensions = MediaQuery.of(context).size;
@@ -20,19 +24,17 @@ class _DetailsState extends State<Details> {
             Container(
               height: 130.h,
               width: double.infinity,
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
+              decoration: const BoxDecoration(
+                color: Color(0xff0E6B56),
+                  borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(30),
                       bottomLeft: Radius.circular(30)),
-                  gradient: LinearGradient(colors: [
-                    Colors.green,
-                    Colors.green.shade200,
-                  ])),
+                 ),
               child: Center(
                 child: Padding(
                   padding: EdgeInsets.only(top: 50.0.h),
                   child: Text(
-                    "Pandit Hariom",
+                    "Details",
                     style: GoogleFonts.signikaNegative(
                         fontSize: 25, color: Colors.white),
                   ),
@@ -47,7 +49,7 @@ class _DetailsState extends State<Details> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(left: 12.0.w),
-                  child: Container(
+                  child: SizedBox(
                     height: 180.h,
                     width: 180.w,
                     child: ClipRRect(
@@ -88,7 +90,7 @@ class _DetailsState extends State<Details> {
               thickness: 1,
               endIndent: 20,
               indent: 20,
-              color: Colors.green,
+              color:const Color(0xff0E6B56),
             ),
             Padding(
               padding: EdgeInsets.only(left: 12.0.w),
@@ -149,7 +151,7 @@ class _DetailsState extends State<Details> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              backgroundColor: Colors.green,
+              backgroundColor:const Color(0xff0E6B56),
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -157,7 +159,7 @@ class _DetailsState extends State<Details> {
                       'Appointed Successfully',
                       style: GoogleFonts.signikaNegative(),
                     ),
-                    backgroundColor: Colors.green,
+                    backgroundColor: const Color(0xff0E6B56),
                   ),
                 );
               },

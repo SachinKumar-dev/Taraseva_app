@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gitson/AuthLogic/InputOTP.dart';
-import 'package:gitson/HotelBookingUi/AccountScreens/CreateAccount.dart';
-import 'package:gitson/HotelBookingUi/AccountScreens/LogPage.dart';
+import 'package:gitson/HotelBookingUi/AccountScreens/LogInPage.dart';
+import 'package:gitson/HotelBookingUi/AccountScreens/SignUpPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LogGmailPage extends StatefulWidget {
@@ -204,7 +204,7 @@ class _LogGmailPageState extends State<LogGmailPage> {
             child: GestureDetector(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LogPage()));
+                    MaterialPageRoute(builder: (context) => const SignUp()));
               },
               child: Container(
                 height: 50,
@@ -237,7 +237,7 @@ class _LogGmailPageState extends State<LogGmailPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CreateAccount()));
+                            builder: (context) =>  const LogIn()));
                   },
                   child: Text(
                     "Sign up",

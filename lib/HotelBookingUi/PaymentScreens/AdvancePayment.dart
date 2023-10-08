@@ -14,11 +14,11 @@ class _PaymentState extends State<Payment> {
   void done(){
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        backgroundColor: Colors.green,
-        content:Text('Reservation is made successfully'),
+        backgroundColor:Color(0xff0E6B56),
+        content:Text('Reservation has made successfully'),
         duration: Duration(seconds: 2),)
     );
-    Future.delayed(Duration(seconds: 2));
+    Future.delayed(const Duration(seconds: 2));
     Navigator.push(context,
         (MaterialPageRoute(builder: (context) => const SearchHotels())));
   }
@@ -73,7 +73,7 @@ class _PaymentState extends State<Payment> {
                       padding: EdgeInsets.only(right: 18.0),
                       child: Text(
                         "Add New Card",
-                        style: TextStyle(color: Colors.green, fontSize: 15),
+                        style: TextStyle(color: Color(0xff0E6B56), fontSize: 15),
                       ),
                     ),
                   ],
@@ -108,8 +108,7 @@ class _PaymentState extends State<Payment> {
                                 selectedValue = value!;
                               });
                             },
-                            activeColor: Colors
-                                .green // Set the color of the selected radio button
+                            activeColor: const Color(0xff0E6B56)
                             ),
                       ),
                     ),
@@ -145,8 +144,7 @@ class _PaymentState extends State<Payment> {
                                 selectedValue = value!;
                               });
                             },
-                            activeColor: Colors
-                                .green // Set the color of the selected radio button
+                            activeColor: const Color(0xff0E6B56)
                             ),
                       ),
                     ),
@@ -182,8 +180,7 @@ class _PaymentState extends State<Payment> {
                                 selectedValue = value!;
                               });
                             },
-                            activeColor: Colors
-                                .green // Set the color of the selected radio button
+                            activeColor: const Color(0xff0E6B56)
                             ),
                       ),
                     ),
@@ -219,8 +216,7 @@ class _PaymentState extends State<Payment> {
                                 selectedValue = value!;
                               });
                             },
-                            activeColor: Colors
-                                .green // Set the color of the selected radio button
+                            activeColor: const Color(0xff0E6B56)
                             ),
                       ),
                     ),
@@ -242,12 +238,12 @@ class _PaymentState extends State<Payment> {
                       height: 50,
                       width: MediaQuery.of(context).size.width*0.91,
                       decoration: BoxDecoration(
-                          color: Colors.green,
+                          color: const Color(0xff0E6B56),
                           borderRadius: BorderRadius.circular(30)),
                       child: const Center(
                           child: Text(
                         "Continue",
-                        style: TextStyle(fontSize: 15, color: Colors.white),
+                        style: TextStyle(fontSize: 15, color:Colors.white),
                       )),
                     ),
                   ),

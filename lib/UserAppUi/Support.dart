@@ -6,7 +6,7 @@ class Support extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Color(0xff0E6B56),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -21,14 +21,14 @@ class Support extends StatelessWidget {
                       },
                       icon: const Icon(
                         Icons.arrow_back,
-                        size: 30,
+                        size: 30,color: Colors.white,
                       ),
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 18.0),
                       child: Text(
                         "Support",
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
                   ],
