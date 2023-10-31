@@ -4,6 +4,8 @@ import 'package:gitson/HotelBookingUi/BookingScreens/HotelPreview.dart';
 import 'package:gitson/Models/HotelModel/Hotel.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../UserAppUi/fav.dart';
+
 class SearchHotels extends StatefulWidget {
   const SearchHotels({Key? key}) : super(key: key);
 
@@ -13,6 +15,20 @@ class SearchHotels extends StatefulWidget {
 
 class _SearchHotelsState extends State<SearchHotels> {
   List<Hotel> hotels = Hotel.hotels;
+  // Inside your SearchHotels class:
+
+  void navigateToFavoriteHotelsPage() {
+    // Filter the favorite hotels from the 'hotels' list
+    List<Hotel> favoriteHotels = hotels.where((hotel) => isBookmarked[hotels.indexOf(hotel)]).toList();
+
+    // Navigate to the FavoriteHotelsPage and pass the filtered list
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => FavoriteHotelsPage(favoriteHotels: favoriteHotels),
+      ),
+    );
+  }
+
   List<bool> isBookmarked = List.filled(Hotel.hotels.length, false);
 
   //container OnTap handling
@@ -181,7 +197,10 @@ class _SearchHotelsState extends State<SearchHotels> {
                           width: 5.w,
                         ),
                         GestureDetector(
-                          onTap: () => _handleTap(3),
+                          onTap: (){
+                            _handleTap(3);
+                            navigateToFavoriteHotelsPage();
+                          },
                           child: Container(
                             height: 40,
                             width: MediaQuery.of(context).size.width * 0.3,

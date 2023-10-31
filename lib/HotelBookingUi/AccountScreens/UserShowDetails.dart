@@ -88,31 +88,26 @@ class _ShowDetailsState extends State<ShowDetails> {
                   ],
                 ),
                 SizedBox(
-                  height:MediaQuery.of(context).size.height*0.22,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListView.builder(
-                        itemCount: documents.length,
-                        itemBuilder: (context, index) {
-                          String imageUrl = documents[index]["imageUrl"];
-                          return Expanded(
-                            child: CircleAvatar(
-                              radius: 80,
-                              backgroundColor: Colors.black,
-                              child: ClipOval(
-                                child: Image.network(
-                                  imageUrl,
-                                  fit: BoxFit.cover,
-                                  // Use BoxFit.cover to fit the image within the circle
-                                  width: 160,
-                                  // Adjust the width as needed
-                                  height: 160, // Adjust the height as needed
-                                ),
-                              ),
+                  height:170.h,
+                  child: ListView.builder(
+                      itemCount: documents.length,
+                      itemBuilder: (context, index) {
+                        String imageUrl = documents[index]["imageUrl"];
+                        return CircleAvatar(
+                          radius: 80,
+                          backgroundColor: Colors.black,
+                          child: ClipOval(
+                            child: Image.network(
+                              imageUrl,
+                              fit: BoxFit.cover,
+                              // Use BoxFit.cover to fit the image within the circle
+                              width: 160,
+                              // Adjust the width as needed
+                              height: 160, // Adjust the height as needed
                             ),
-                          );
-                        }),
-                  ),
+                          ),
+                        );
+                      }),
                 ),
                 const SizedBox(
                   height: 20,

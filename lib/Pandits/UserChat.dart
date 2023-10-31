@@ -163,7 +163,6 @@ class _UserChatState extends State<UserChat> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            // Show the image preview dialog when the CircleAvatar is tapped.
                             showImagePreviewDialog(context, imageUrl);
                           },
                           child: Padding(

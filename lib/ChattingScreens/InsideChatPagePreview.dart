@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gitson/HotelBookingUi/PaymentScreens/AdvancePayment.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../ChatPages/Payment.dart';
@@ -9,7 +8,7 @@ import '../ChatPages/Payment.dart';
 class MessageWidget extends StatelessWidget {
   final String message;
 
-  MessageWidget(this.message);
+  const MessageWidget(this.message, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +37,41 @@ class MessageWidget extends StatelessWidget {
   }
 }
 
-class Preview extends StatelessWidget {
+class Preview extends StatefulWidget {
+  Preview({Key? key});
+
+  @override
+  State<Preview> createState() => _PreviewState();
+}
+
+class _PreviewState extends State<Preview> {
+  List<DocumentSnapshot> documents = [];
+
+  @override
+  void initState() {
+    super.initState();
+    readData();
+  }
+
+  Future<void> readData() async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Pandit Details')
+          .orderBy('createdAt', descending: false)
+          .get();
+
+      setState(() {
+        documents = querySnapshot.docs;
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+  }
+
   final TextEditingController _textController = TextEditingController();
 
   final CollectionReference _chats =
-  FirebaseFirestore.instance.collection("Pandit's Chat");
-
-  Preview({Key? key});
+      FirebaseFirestore.instance.collection("Pandit's Chat");
 
   void _handleMessageSend(String message) {
     if (message.isNotEmpty) {
@@ -61,19 +88,32 @@ class Preview extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff0E6B56),
-        leading: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-          ),
-        ),
+        leading: ListView.builder(
+            shrinkWrap: true,
+            itemCount: 1,
+            itemBuilder: (context, index) {
+              String imageUrl = documents[index]["imageUrlP"];
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  radius: 20,
+                  backgroundImage: NetworkImage(imageUrl),
+                ),
+              );
+            }),
         actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 120.0, top: 15.0),
-            child: const Text(
-              "Ravi Teja",
-              style: TextStyle(fontSize: 20),
-            ),
+          Expanded(
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 60.0, top: 15),
+                    child: Text(
+                      documents[index]["name"],
+                    ),
+                  );
+                }),
           ),
           const Icon(Icons.video_call_rounded),
           SizedBox(
@@ -97,7 +137,7 @@ class Preview extends StatelessWidget {
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                   stream:
-                  _chats.orderBy('timestamp', descending: true).snapshots(),
+                      _chats.orderBy('timestamp', descending: true).snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
@@ -155,7 +195,7 @@ class Preview extends StatelessWidget {
                         // Handle text input here
                       },
                       decoration: InputDecoration(
-                        focusColor:  const Color(0xff0E6B56),
+                        focusColor: const Color(0xff0E6B56),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
@@ -217,20 +257,21 @@ class Preview extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all( const Color(0xff0E6B56))),
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color(0xff0E6B56))),
                       onPressed: () {
                         Navigator.of(context).pop();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                const Payments()));
+                                builder: (context) => const Payments()));
                       },
                       child: const Text('Open'),
                     ),
                     ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all( const Color(0xff0E6B56))),
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color(0xff0E6B56))),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
